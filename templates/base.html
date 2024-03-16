@@ -1,0 +1,27 @@
+{% comment %} #各画面共通のリンク {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <!-- bootstrap -->  {#遷移先：https://getbootstrap.com/docs/5.0/getting-started/introduction/#}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'accounts:home' %}">ホーム</a>
+            <a class="navbar-brand" href="{% url 'accounts:user_logout' %}">ログアウト</a>
+            <a class="navbar-brand" href="{% url 'custmanage:cust_list' %}">名刺一覧</a>       
+            <a class="navbar-brand" href="{% url 'custmanage:user_info' pk=request.user.pk %}">ユーザー情報</a>
+            {% else %}
+            <a class="navbar-brand" href="{% url 'accounts:user_login' %}">ログイン</a>
+            <a class="navbar-brand" href="{% url 'accounts:regist' %}">ユーザー登録</a>
+            {% endif %}
+        </nav>
+    {% block content %}{% endblock %}
+    {% block javascript %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style='text-align:center'>個人向け名刺管理ツール</h1>
+<h2 style='text-align:center'>Welcome!!</h2>
+<h3 style='text-align:center'>アナログな名刺をデジタルにして、データを残そう！</h3>
+<form method="POST">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="hidden" name="next" value="{{ request.GET.next }}">
+   <input type="submit" value="ログイン">
+</form>
+{% endblock %}

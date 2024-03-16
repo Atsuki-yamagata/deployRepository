@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% comment %} ホーム画面（名刺一覧） {% endcomment %}
+{% block content %}
+<div class="col-10 offset-1">
+<h1>名刺一覧</h1>
+<form method="get" action="{% url 'custmanage:cust_list' %}">
+    <p>会社名：<input type="text" name="Company" value="{{ Company }}"/></p>
+    <p>業種：<input type="text" name="Cust_job" value="{{ Cust_job }}"/></p>
+    <p>資格：<input type="text" name="Cust_skill" value="{{ Cust_skill }}"/></p>
+    <p>重要度で並べ替える：
+       昇順<input type="radio" name="order_by_importance_level" value="1" {% if ascending %}checked{% endif %}>
+       降順<input type="radio" name="order_by_importance_level" value="2" {% if descending %}checked{% endif %}>
+    </p>
+    <p><input type="submit" value="実行する"/></p>
+</form>
+{% comment %} <input type="checkbox" id="checkbox"> {% endcomment %}
+{% comment %} <label for="checkbox">チェックボックス</label> {% endcomment %}
+{% comment %} <p><a href="{% url 'custmanage:add_cust_info' %}">新規名刺登録</a></p> {% endcomment %}
+<table class="table table-striped table-bordered">
+<thead>
+    <tr>
+        <td></td>
+        <td>氏名</td>
+        <td>会社名</td>
+        <td>業種</td>
+        <td>資格</td>
+        <td>重要度</td>        
+        <td>作成日</td>
+        <td>更新日</td>
+    </tr>
+</thead>
+
+{% comment %} ↓削除機能実装のためのidを記載 {% endcomment %}
+<tbody id="list"> 
+{% for Cust_info in object_list %}
+    <tr>
+        {% comment %} ↓各行に削除のためのチェックボックスを追加 {% endcomment %}
+        <td><input type="checkbox" name="selected_items" value="{{ Cust_info.id }}"></td>
+        {% comment %} ↓顧客氏名を詳細画面へのリンクにする  {% endcomment %}
+        <td><a href="{% url 'custmanage:cust_detail' pk=Cust_info.pk %}">{{ Cust_info.Cust_name }}</a></td>
+        <td>{{ Cust_info.Company }}</td>
+        <td>{{ Cust_info.Cust_job }}</td>
+        <td>{{ Cust_info.Cust_skill }}</td>
+        <td>{{ Cust_info.importance_level }}</td>
+        <td>{{ Cust_info.create_at }}</td>        
+        <td>{{ Cust_info.update_at }}</td>        
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% comment %} <button onclick="deleteCheckedItems()">選択した項目を削除</button> {% endcomment %}
+<p><a href={% url "custmanage:add_cust_info" %} class="button">＋顧客情報の新規登録</a></p>
+
+{% comment %} <button onclick="location.href={% url 'custmanage:add_cust_info/' %}">＋顧客情報を追加</button> {% endcomment %}
+</div>
+
+{% comment %} <script> 
+選択されたﾁｪｯｸﾎﾞｯｸｽを直接取得して、対応するテーブル行を削除する
+function deleteCheckedItems() {
+    var checkboxes = document.querySelectorAll("input[name='selected_items']:checked");
+    if (checkboxes.length > 0) {
+        for (var i = checkboxes.length - 1; i >= 0; i--) {
+            checkboxes[i].closest("tr").remove();
+        }
+        alert("削除が完了しました。");
+    } else {
+        alert("削除する項目を選択してください。");
+    }
+}
+</script> {% endcomment %}
+
+{% endblock %}

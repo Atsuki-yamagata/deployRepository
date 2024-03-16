@@ -1,0 +1,51 @@
+{% extends 'base.html' %}   {% comment %} 詳細画面 {% endcomment %}
+{% block content %}
+<div class="col-10 offset-1">
+<h1>ユーザー情報</h1>
+
+{% comment %} リスト表示 {% endcomment %}
+<table class="table table-striped table-bordered"> 
+<thead> 
+{% comment %} リストの項目名 {% endcomment %}
+    <tr>
+        <td>氏名</td>
+        <td>年齢</td>
+        <td>住所</td>
+        <td>趣味</td>
+        <td>仕事</td>
+        <td>職歴</td>
+        <td>資格</td>
+        <td>役職</td>
+        <td>メールアドレス</td>
+        <td>電話番号</td>
+        <td>作成日</td>
+        <td>更新日</td>
+        <td>備考</td>
+    </tr>
+</thead>
+<tbody>
+{% for User_info in object_list %}
+    <tr>
+        <td>{{ User_info.name }}</td>
+        <td>{{ User_info.age }}</td>
+        <td>{{ User_info.address }}</td>
+        <td>{{ User_info.hobby }}</td>
+        <td>{{ User_info.job }}</td>
+        <td>{{ User_info.job_history }}</td>
+        <td>{{ User_info.skill }}</td>
+        <td>{{ User_info.post }}</td>
+        <td>{{ User_info.mail }}</td>        
+        <td>{{ User_info.phone_num }}</td>        
+        <td>{{ User_info.create_at }}</td>
+        <td>{{ User_info.update_at }}</td>
+        <td>{{ User_info.memo }}</td>        
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+<p><a href="{% url 'custmanage:edit_user_info' pk=request.user.pk %}">編集</a></p>
+<p><a href="{% url 'custmanage:delete_user' pk=request.user.pk %}">削除</a></p>
+<p><a href="{% url "custmanage:cust_list" %}" class="button">Back</a></p>
+
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}   {% comment %} 詳細画面 {% endcomment %}
+{% block content %}
+<div class="col-10 offset-1">
+<h1>詳細情報</h1>
+
+{% comment %} リスト表示 {% endcomment %}
+<table class="table table-striped table-bordered"> 
+<thead> 
+{% comment %} リストの項目名 {% endcomment %}
+    <tr>
+        <td>氏名</td>
+        <td>会社名</td>
+        <td>所在地</td>
+        <td>役職</td>
+        <td>業種</td>
+        <td>資格</td>
+        <td>メールアドレス</td>
+        <td>電話番号</td>
+        <td>作成日</td>
+        <td>更新日</td>
+        <td>重要度</td>
+        <td>備考</td>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>{{ object.Cust_name }}</td>
+        <td>{{ object.Company }}</td>
+        <td>{{ object.Company_address }}</td>
+        <td>{{ object.Cust_post }}</td>
+        <td>{{ object.Cust_job }}</td>
+        <td>{{ object.Cust_skill }}</td>
+        <td>{{ object.Cust_mail }}</td>
+        <td>{{ object.Cust_phone_num }}</td>
+        <td>{{ object.create_at }}</td>        
+        <td>{{ object.update_at }}</td>        
+        <td>{{ object.importance_level }}</td>
+        <td>{{ object.memo }}</td>        
+    </tr>
+</tbody>
+</table>
+<a href="{% url 'custmanage:edit_cust_info' object.id %}">編集</a>
+<br></br>
+<a href="{% url 'custmanage:delete_info' object.id %}">削除</a>
+<br></br>
+<p><a href={% url "custmanage:cust_list" %} class="button">Back</a></p>
+
+</div>
+{% endblock %}
