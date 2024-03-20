@@ -30,11 +30,11 @@
 </thead>
 
 {% comment %} ↓削除機能実装のためのidを記載 {% endcomment %}
-<tbody id="list"> 
+<tbody> 
 {% for Cust_info in object_list %}
     <tr>
         {% comment %} ↓各行に削除のためのチェックボックスを追加 {% endcomment %}
-        <td><input type="checkbox" name="selected_items" value="{{ Cust_info.id }}"></td>
+        {% comment %} <td><input type="checkbox" name="selected_items" value="{{ Cust_info.id }}"></td> {% endcomment %}
         {% comment %} ↓顧客氏名を詳細画面へのリンクにする  {% endcomment %}
         <td><a href="{% url 'custmanage:cust_detail' pk=Cust_info.pk %}">{{ Cust_info.Cust_name }}</a></td>
         <td>{{ Cust_info.Company }}</td>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustInfo, UserInfo
+from .models import CustInfo, Users
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 
@@ -33,10 +33,10 @@ class CustUpdateForm(forms.ModelForm):
 class UserInfoForm(forms.ModelForm):
 
     class Meta:
-        model = UserInfo
+        model = Users
         fields = '__all__'
     def save(self, *args, **kwargs):
-        obj = super(UserInfo, self).save(commit=False)
+        obj = super(Users, self).save(commit=False)
         obj.create_at = datetime.now()
         obj.update_at = datetime.now()
         obj.save()
@@ -45,7 +45,7 @@ class UserInfoForm(forms.ModelForm):
 class UserUpdateForm(forms.ModelForm):
 
     class Meta():
-        model = UserInfo
+        model = Users
         fields = ['name', 'age', 'address', 'hobby', 'job', 'job_history',
                   'skill', 'post', 'mail', 'phone_num', 'memo']
         

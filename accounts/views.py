@@ -11,6 +11,8 @@ from django.contrib.auth import update_session_auth_hash
 from .import forms
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.http import JsonResponse
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -18,7 +20,7 @@ class HomeView(TemplateView):
 class RegistUserView(CreateView):
     template_name = 'regist.html'
     form_class = RegistForm
-
+    success_url = reverse_lazy('accounts:user_login')
 
 class UserLoginView(LoginView):
     template_name = 'user_login.html'

@@ -8,16 +8,16 @@ from django.views.generic.edit import (
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import os
 from . import forms
-from .models import CustInfo, UserInfo
+from .models import CustInfo, Users
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404
 from datetime import datetime
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
 from django.urls import reverse
 from .forms import CustUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 
 
@@ -27,23 +27,38 @@ class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
     
     def test_user_func(self):
-        User_info = get_object_or_404(UserInfo, pk=self.kwargs['pk'])
-        return self.request.user == User_info.user
+        Users = get_object_or_404(Users, pk=self.kwargs['pk'])
+        return self.get_queryset().filter(user_id=self.request.user.id).exists()
 
     def test_cust_func(self):
         Cust_info = get_object_or_404(CustInfo, pk=self.kwargs['pk'])
-        return self.request.user == Cust_info.user
+        return self.get_queryset().filter(user_id=self.request.user.id).exists()
+    
+    def test_func(self):
+        if self.test_user_func() or self.test_cust_func():
+            return True
+        else:
+            raise PermissionDenied
     
 class UserListView(LoginRequiredMixin, ListView, OnlyYouMixin):
-    model = UserInfo
+    model = Users
     template_name = os.path.join('custmanage', 'user_info.html')
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(id=self.request.user.id).order_by('id')
 
 class CustomerListView(LoginRequiredMixin, ListView, OnlyYouMixin):
     model = CustInfo
     template_name = os.path.join('custmanage', 'cust_list.html')
     
-    # 絞り込み
     def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user_id=self.request.user.id).order_by('id')
+
+    
+    # 絞り込み
+    def get_queryset_sort(self):
             query = super().get_queryset()
             Company = self.request.GET.get('Company', None)
             Cust_job = self.request.GET.get('Cust_job', None)
@@ -99,9 +114,11 @@ class CustDeleteView(LoginRequiredMixin, DeleteView, OnlyYouMixin):
     success_url = reverse_lazy('custmanage:cust_list')
 
 class UserDeleteView(LoginRequiredMixin, DeleteView, OnlyYouMixin):
-    model  = UserInfo
+    model  = Users
     template_name = os.path.join('custmanage','delete_user.html')
-    success_url = reverse_lazy('custmanage:user_info')
+    
+    def get_success_url(self):
+        return reverse_lazy('accounts:user_login')
 
     
 class CustUpdateView(LoginRequiredMixin, UpdateView, OnlyYouMixin):
@@ -109,7 +126,7 @@ class CustUpdateView(LoginRequiredMixin, UpdateView, OnlyYouMixin):
     template_name = os.path.join('custmanage', 'update_cust_info.html')
     
 class UserUpdateView(UpdateView, OnlyYouMixin):
-    model = UserInfo
+    model = Users
     form_class = UserUpdateForm
     template_name = 'custmanage/edit_user_info.html'
     
