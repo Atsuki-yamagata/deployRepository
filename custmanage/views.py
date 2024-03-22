@@ -112,10 +112,13 @@ class CustDeleteView(LoginRequiredMixin, DeleteView, OnlyYouMixin):
     model  = CustInfo
     template_name = os.path.join('custmanage','delete_info.html')
     success_url = reverse_lazy('custmanage:cust_list')
+    extra_context = {'style': 'padding-left: 20px;'}
 
 class UserDeleteView(LoginRequiredMixin, DeleteView, OnlyYouMixin):
     model  = Users
     template_name = os.path.join('custmanage','delete_user.html')
+    extra_context = {'style': 'padding-left: 20px;'}
+
     
     def get_success_url(self):
         return reverse_lazy('accounts:user_login')
@@ -124,11 +127,14 @@ class UserDeleteView(LoginRequiredMixin, DeleteView, OnlyYouMixin):
 class CustUpdateView(LoginRequiredMixin, UpdateView, OnlyYouMixin):
     model = CustInfo
     template_name = os.path.join('custmanage', 'update_cust_info.html')
-    
+    extra_context = {'style': 'padding-left: 20px;'}
+
 class UserUpdateView(UpdateView, OnlyYouMixin):
     model = Users
     form_class = UserUpdateForm
     template_name = 'custmanage/edit_user_info.html'
+    extra_context = {'style': 'padding-left: 20px;'}
+
     
     def get_success_url(self):
         return reverse_lazy('custmanage:user_info', kwargs={'pk': self.object.pk})

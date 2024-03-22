@@ -1,9 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1 style='text-align:center'>新規ユーザー登録を行います</h1>
-<form method="POST">
-   {% csrf_token %}
-   {{ form.as_p }}
-   <input type="submit" value="ユーザ登録">
-</form>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login Form</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-container {
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div class="form-container">
+      <form method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <input type="hidden" name="next" value="{{ request.GET.next }}">
+         <input type="submit" value="ユーザー登録">
+      </form>
+    </div>
+  </div>
+</body>
+</html>
 {% endblock %}

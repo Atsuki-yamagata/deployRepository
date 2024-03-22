@@ -1,10 +1,28 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
 {% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="更新">
-<p><a href={% url "custmanage:cust_detail" object.id %} class="button">Back</a></p>
-</form>
 
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer Info</title>
+    <style>
+        .content {
+            padding-left: 20px
+        }
+    </style>
+</head>
+<body>
+    <div class='content'>
+        <form method="POST">
+            {{ form.as_p }}
+            <input type="submit" value="更新">
+            <br></br>
+            <a href={% url "custmanage:cust_detail" object.id %} class="button">Back</a>
+        </form>
+    </div>
+</body>
+</html>
 {% endblock %}
