@@ -53,14 +53,11 @@ class CustomerListView(LoginRequiredMixin, ListView):
     model = CustInfo
     template_name = os.path.join('custmanage', 'cust_list.html')
     
-    # ログインユーザーidと関連して表示する情報を絞り込む。
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(user_id=self.request.user.id).order_by('id')
-
     # 絞り込み
     def get_queryset(self):
         queryset = super().get_queryset()
+        user_id = self.request.user.id  # ログインユーザーのIDを取得
+        queryset = queryset.filter(user_id=user_id)  # ユーザーIDでフィルタリング
         Company_name = self.request.GET.get('Company_name', None)
         Cust_job_name = self.request.GET.get('Cust_job_name', None)
         Cust_skill_name = self.request.GET.get('Cust_skill_name', None)
