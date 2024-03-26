@@ -1,6 +1,18 @@
 {% extends 'base.html' %}   {% comment %} 詳細画面 {% endcomment %}
 {% block content %}
 <div class="col-10 offset-1">
+<head>
+    <style>
+        h1 {
+            color: #364e96;
+            padding: 0.5em 0;
+            border-bottom: solid 3px #364e96;
+            }
+        .table-bordered {
+            border-color: #000000;
+            }
+    </style>
+</head>
 <h1>ユーザー情報</h1>
 
 {% comment %} リスト表示 {% endcomment %}
@@ -8,19 +20,19 @@
 <thead> 
 {% comment %} リストの項目名 {% endcomment %}
     <tr>
-        <td>氏名</td>
-        <td>年齢</td>
-        <td>住所</td>
-        <td>趣味</td>
-        <td>仕事</td>
-        <td>職歴</td>
-        <td>資格</td>
-        <td>役職</td>
-        <td>メールアドレス</td>
-        <td>電話番号</td>
-        <td>作成日</td>
-        <td>更新日</td>
-        <td>備考</td>
+        <td><b>氏名</b></td>
+        <td><b>年齢</b></td>
+        <td><b>住所</b></td>
+        <td><b>趣味</b></td>
+        <td><b>仕事</b></td>
+        <td><b>職歴</b></td>
+        <td><b>資格</b></td>
+        <td><b>役職</b></td>
+        <td><b>メールアドレス</b></td>
+        <td><b>電話番号</b></td>
+        <td><b>作成日</b></td>
+        <td><b>更新日</b></td>
+        <td><b>備考</b></td>
     </tr>
 </thead>
 <tbody>

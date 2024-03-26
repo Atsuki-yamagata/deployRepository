@@ -8,7 +8,8 @@ from django.views.generic.edit import (
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import os
 from . import forms
-from .models import CustInfo, Users
+from .models import CustInfo
+from accounts.models import Users
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404
 from datetime import datetime
@@ -31,7 +32,7 @@ class OnlyYouMixin(UserPassesTestMixin):
         return self.get_queryset().filter(user_id=self.request.user.id).exists()
 
     def test_cust_func(self):
-        Cust_info = get_object_or_404(CustInfo, pk=self.kwargs['pk'])
+        CustInfo = get_object_or_404(CustInfo, pk=self.kwargs['pk'])
         return self.get_queryset().filter(user_id=self.request.user.id).exists()
     
     def test_func(self):
@@ -48,42 +49,40 @@ class UserListView(LoginRequiredMixin, ListView, OnlyYouMixin):
         queryset = super().get_queryset()
         return queryset.filter(id=self.request.user.id).order_by('id')
 
-class CustomerListView(LoginRequiredMixin, ListView, OnlyYouMixin):
+class CustomerListView(LoginRequiredMixin, ListView):
     model = CustInfo
     template_name = os.path.join('custmanage', 'cust_list.html')
     
+    # ログインユーザーidと関連して表示する情報を絞り込む。
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user_id=self.request.user.id).order_by('id')
 
-    
     # 絞り込み
-    def get_queryset_sort(self):
-            query = super().get_queryset()
-            Company = self.request.GET.get('Company', None)
-            Cust_job = self.request.GET.get('Cust_job', None)
-            Cust_skill = self.request.GET.get('Cust_skill', None)
-            if Company:
-                query = query.filter( Company=Company )
-            if Cust_job:
-                query = query.filter( Cust_job=Cust_job )
-                
-            if Cust_skill:
-                query = query.filter( Cust_skill=Cust_skill )
-                
-            order_by_importance_level = self.request.GET.get('order_by_importance_level', 0)
-            if order_by_importance_level == '1':
-                query = query.order_by('importance_level')
-            elif order_by_importance_level == '2':
-                query = query.order_by('-importance_level')
-            return query
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        Company_name = self.request.GET.get('Company_name', None)
+        Cust_job_name = self.request.GET.get('Cust_job_name', None)
+        Cust_skill_name = self.request.GET.get('Cust_skill_name', None)
+        if Company_name:
+            queryset = queryset.filter( Company=Company_name )
+        if Cust_job_name:
+            queryset = queryset.filter( Cust_job=Cust_job_name )  
+        if Cust_skill_name:
+            queryset = queryset.filter( Cust_skill=Cust_skill_name )
+        order_by_importance_level = self.request.GET.get('order_by_importance_level', None)
+        if order_by_importance_level == '1':
+            queryset = queryset.order_by('importance_level')
+        elif order_by_importance_level == '2':
+            queryset = queryset.order_by('-importance_level')
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Company'] = self.request.GET.get('Company', '')
         context['Cust_job'] = self.request.GET.get('Cust_job', '')
         context['Cust_skill'] = self.request.GET.get('Cust_skill', '')
-        order_by_importance_level = self.request.GET.get('order_by_price', 0)
+        order_by_importance_level = self.request.GET.get('order_by_importance_level', 0)
         if order_by_importance_level == '1':
             context['ascending'] = True
         elif order_by_importance_level == '2':
@@ -147,3 +146,5 @@ class CustUpdateView(UpdateView, OnlyYouMixin, LoginRequiredMixin):
     def get_success_url(self):
         return reverse_lazy('custmanage:cust_detail', kwargs={'pk': self.object.pk})
     
+def server_error(request):
+    return render(request, 'accounts/500.html', status=500)

@@ -3,21 +3,29 @@
 <form method="POST">
 {% csrf_token %}
 <html lang="ja">
+<style>
+    h1 {
+        text-align: center;
+        color: #00F;/*文字色*/
+        padding: 0.5em 0;/*上下の余白*/
+        border-bottom: solid 3px #00F;/*下線*/
+    }
+    .content {
+        padding-left: 50px
+    }
+</style>
+<h1>ユーザー情報を変更できます。</h1>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User Info</title>
-    <style>
-        .content {
-            padding-left: 20px
-        }
-    </style>
 </head>
 <body>
     <div class='content'>
         <form method="POST">
             {{ form.as_p }}
             <input type="submit" value="更新">
+            <br></br>
+            <a href={% url "accounts:change_password" object.pk %} class="button">パスワード更新</a>
             <br></br>
             <a href={% url "custmanage:user_info" object.id %} class="button">Back</a>
         </form>

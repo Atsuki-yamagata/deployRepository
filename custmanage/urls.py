@@ -15,3 +15,5 @@ urlpatterns = [
     path('delete_info/<int:pk>/', CustDeleteView.as_view(), name='delete_info'),
     path('delete_user/<int:pk>/', UserDeleteView.as_view(), name='delete_user'),
 ]
+
+handler500 = views.server_error

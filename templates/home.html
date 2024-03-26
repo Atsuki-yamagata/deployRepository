@@ -1,4 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1 style='text-align:center'>Welcome!!</h1>
+<style>
+    h1 {
+      color: #00F;/*文字色*/
+      padding: 0.5em 0;/*上下の余白*/
+      border-bottom: solid 3px #00F;/*下線*/
+      text-align:center;
+    }
+    p {
+        text-align:center;
+        font-size: 18px;
+    }
+
+</style>
+<body>
+
+
+<h1><i>Welcome!!</i></h1>
+<p></p>
+<p>名刺管理アプリケーションにようこそ！</p>
+<p>ここでは、いつも紙ベースで運用している名刺の情報を登録して</p>
+<p>Web上でいつでも閲覧することができます!!</p>
+<br></br>
+<p><b>ユーザー情報の登録（編集）、削除➡ <a href="{% url 'custmanage:user_info' pk=request.user.pk %}">ユーザー情報</a></b></p>
+<p><b>顧客名刺情報の一覧、登録➡ <a  href="{% url 'custmanage:cust_list' %}">名刺一覧</a></b></p>
+</body>
 {% endblock %}
