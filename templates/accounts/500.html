@@ -1,3 +1,30 @@
-<h1>システムエラー</h1>
+{% extends "base.html" %}
+{% block content %}
+<style>
+    h1 {
+        text-align: center;
+        color: #00F;/*文字色*/
+        padding: 0.5em 0;/*上下の余白*/
+        border-bottom: solid 3px #00F;/*下線*/
+    }
+           a.btn--yellow {
+  color: #FFF;
+  background-color: #000080;
+  border-bottom: 5px solid #808080;
+}
+a.btn--yellow:hover {
+  margin-top: 3px;
+  color: #FFF;
+  background: # 808080;
+  border-bottom: 2px solid #808080;
+}
+    p {
+        color: red;
+        text-align: center;
+    }
+</style>
+
+<h1>登録エラー</h1>
 <p>パスワードが不適切です。</p>
-<a href="{% url 'accounts:regist' %}">新規登録画面へ</a>
+<p><a href="{% url 'accounts:regist' %}" class="btn btn--yellow btn--cubic">新規登録画面へ</a></p>
+{% endblock %}

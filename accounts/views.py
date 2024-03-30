@@ -30,16 +30,8 @@ class UserLoginView(LoginView):
     template_name = 'user_login.html'
     authentication_form = UserLoginForm
 
-    # def form_valid(self, form):
-    #     remember = form.cleaned_data['remember']
-    #     if remember:
-    #         self.request.session.set_expiry(1200000)
-    #     return super().form_valid(form)
-
-
 class UserLogoutView(LogoutView):
     pass
-
 
 class UserView(LoginRequiredMixin, TemplateView):
     template_name = 'user.html'

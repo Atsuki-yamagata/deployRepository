@@ -1,45 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
-        h1 {
-            color: #364e96;
-            padding: 0.5em 0;
-            border-top: solid 3px #364e96;
-            border-bottom: solid 3px #364e96;
-        }
+    h1 {
+        color: #364e96;
+        padding: 0.5em 0;
+        border-top: solid 3px #364e96;
+        border-bottom: solid 3px #364e96;
+    }
+
+    .errorlist li {
+        color: #f00;
+        list-style-position: inside;
+        display: block;
+        padding: 1.0rem;
+        text-align: center;
+        width: 700px;
+
+    }
+    .center-align {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+        position: fixed;
+        width: 100%;
+    }
+
+    .form-container form {
+        display: inline-block; /* フォームをインラインブロックにする */
+        text-align: right; /* フォーム内のテキストを左揃えにする */
+        width: 300px;
+    }
 </style>
 <h1 style='text-align:center'>個人向け名刺管理ツール</h1>
 <h2 style='text-align:center'>Welcome!!</h2>
 <h3 style='text-align:center'>アナログな名刺をデジタルにして、データを残そう！</h3>
-
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Login Form</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .form-container {
-      width: 400px;
-    }
-  </style>
-</head>
-<body>
-  <div class="center">
+<br></br>
+<div class="center-align">
     <div class="form-container">
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="ログイン">
-      </form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p style="text-align: center;"><input type="submit" value="ログイン"></p>
+        </form>
     </div>
-  </div>
-</body>
-</html>
+</div>
 {% endblock %}

@@ -8,15 +8,71 @@
         padding: 0.5em 0;/*上下の余白*/
         border-bottom: solid 3px #00F;/*下線*/
     }
-    p {
-        padding-left: 50px
+    .button {
+        display: inline-block;
+        padding: 8px 18px;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
     }
+    .button:hover {
+        background-color: #0056b3;
+    }
+    .center-align {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+    .right-align {
+      text-align: right;
+    }
+.btn,
+a.btn,
+button.btn {
+  font-size: 0.9rem;
+  font-weight: 100;
+  line-height: 0.9;
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 0.6rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  color: #212529;
+  border-radius: 0.3rem;
+}
+
+  a.btn--yellow {
+    color: #FFF;
+    background-color: #000080;
+    border-bottom: 5px solid #808080;
+  }
+  a.btn--yellow:hover {
+    margin-top: 3px;
+    color: #FFF;
+    background: # 808080;
+    border-bottom: 2px solid #808080;
+  }
 </style>
 <h1>名刺情報を追加できます。</h1>
-    {{ form.as_p }}
-    <p><input type="submit" value="保存"></p>
-    <p><a href={% url "custmanage:cust_list" %} class="button">Back</a></p>
-    <div style="{{ style }}">
+    <div class="center-align right-align">
+     <div class="form-container">
+        {{ form.as_p }}
+        <p style="text-align: center;"><input type="submit" value="保存"></p>
+        <p style="text-align: center;"><a href={% url "custmanage:cust_list" %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
+     </div>
     </div>
-
 </form>

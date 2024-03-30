@@ -5,14 +5,56 @@
 <html lang="ja">
 <style>
     h1 {
+        position: fixed; /* h1要素の位置を固定 */
+        top: 10; /* 画面上端に配置 */
+        left: 0; /* 画面左端に配置 */
+        width: 100%; /* 幅を100%に設定 */
         text-align: center;
-        color: #00F;/*文字色*/
-        padding: 0.5em 0;/*上下の余白*/
-        border-bottom: solid 3px #00F;/*下線*/
+        color: #00F;
+        padding: 0.5em 0;
+        border-bottom: solid 3px #00F;
+        z-index: 1000; /* 他の要素よりも手前に表示 */
     }
     .content {
-        padding-left: 50px
+        padding-left: 50px;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
     }
+    .center-align {
+        position: fixed; /* h1要素の位置を固定 */
+        top: 100; /* 画面上端に配置 */
+        left: 0; /* 画面左端に配置 */
+        width: 50%; /* 幅を100%に設定 */
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        overflow-y: auto;
+    }
+    .right-align {
+      text-align: right;
+    }
+    .form-container {
+        text-align: right;
+        position: fixed; /* 相対位置指定の親要素を基準にするために絶対位置指定を使う */
+        top: 450px; /* 上下中央に配置 */
+        left: 50%; /* 左右中央に配置 */
+        transform: translate(-50%, -50%); /* 中央配置 */
+        width: 300px; /* フォームの幅 */
+        {% comment %} overflow-y: auto; {% endcomment %}
+    }
+    a.btn--yellow {
+        color: #FFF;
+        background-color: #000080;
+        border-bottom: 5px solid #808080;
+    }
+    a.btn--yellow:hover {
+        margin-top: 3px;
+        color: #FFF;
+        background: # 808080;
+        border-bottom: 2px solid #808080;
+    }   
 </style>
 <h1>名刺情報を変更できます。</h1>
 <head>
@@ -20,13 +62,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class='content'>
+    <div class="center-align right-align">
+     <div class="form-container">
         <form method="POST">
             {{ form.as_p }}
-            <input type="submit" value="更新">
-            <br></br>
-            <a href={% url "custmanage:cust_detail" object.id %} class="button">Back</a>
+            <p style="text-align: center;"><input type="submit" value="更新"></p>
+            <p style="text-align: center;"><a href={% url "custmanage:cust_detail" object.id %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
         </form>
+    </div>
     </div>
 </body>
 </html>

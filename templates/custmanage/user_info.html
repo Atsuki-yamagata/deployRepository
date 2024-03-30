@@ -1,6 +1,7 @@
 {% extends 'base.html' %}   {% comment %} 詳細画面 {% endcomment %}
 {% block content %}
-<div class="col-10 offset-1">
+<h1 style='text-align: center;'>ユーザー情報</h1>
+<div class="col-10 offset-1" style="overflow-x: auto;">
 <head>
     <style>
         h1 {
@@ -8,12 +9,32 @@
             padding: 0.5em 0;
             border-bottom: solid 3px #364e96;
             }
+        p {
+            text-align: center;
+        }
         .table-bordered {
             border-color: #000000;
             }
+        .table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+    a.btn--yellow {
+  color: #FFF;
+  background-color: #000080;
+  border-bottom: 5px solid #808080;
+}
+a.btn--yellow:hover {
+  margin-top: 3px;
+  color: #FFF;
+  background: # 808080;
+  border-bottom: 2px solid #808080;
+}
+
     </style>
 </head>
-<h1>ユーザー情報</h1>
+
 
 {% comment %} リスト表示 {% endcomment %}
 <table class="table table-striped table-bordered"> 
@@ -55,9 +76,11 @@
 {% endfor %}
 </tbody>
 </table>
-<p><a href="{% url 'custmanage:edit_user_info' pk=request.user.pk %}">編集</a></p>
-<p><a href="{% url 'custmanage:delete_user' pk=request.user.pk %}">削除</a></p>
-<p><a href="{% url "custmanage:cust_list" %}" class="button">Back</a></p>
-
 </div>
+<br></br>
+<p><a href="{% url 'custmanage:edit_user_info' pk=request.user.pk %}" class="btn btn--yellow btn--cubic">編集 〉</a></p>
+<p><a href="{% url 'custmanage:delete_user' pk=request.user.pk %}" class="btn btn--yellow btn--cubic">削除 〉</a></p>
+<p><a href="{% url "custmanage:cust_list" %}" class="btn btn--yellow btn--cubic">〈 Back</a></p>
+
+
 {% endblock %}

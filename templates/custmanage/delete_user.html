@@ -1,6 +1,65 @@
 <form method="POST">
 {% csrf_token %}
-<p style='{{ style }}'>削除してよろしいでしょうか？</p>
-<p style='{{ style }}'><input type="submit" value="削除する"></p>
-<p style='{{ style }}'><a href={% url "custmanage:user_info" object.id %} class="button">Back</a></p>
+<style>
+    h2 {
+      color: #364e96;/*文字色*/
+      padding: 0.5em 0;/*上下の余白*/
+      border-bottom: solid 3px #364e96;/*下線*/
+      text-align: center;
+    }
+    p{
+    text-align: center;
+    }
+
+      .red-text {
+    color: red;
+  }
+
+
+{% comment %} html {
+  -webkit-box-sizing: border-box;
+  box-sizing: content-box;
+  font-size: 100%;
+} {% endcomment %}
+.btn,
+a.btn,
+button.btn {
+  font-size: 0.9rem;
+  font-weight: 100;
+  line-height: 0.9;
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 0.6rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  color: #212529;
+  border-radius: 0.3rem;
+}
+
+  a.btn--yellow {
+    color: #FFF;
+    background-color: #000080;
+    border-bottom: 5px solid #808080;
+  }
+  a.btn--yellow:hover {
+    margin-top: 3px;
+    color: #FFF;
+    background: # 808080;
+    border-bottom: 2px solid #808080;
+  }
+</style>
+<h2>あなたの情報を削除してよろしいでしょうか？</h2>
+<p class="red-text">※削除を実行すると、元に戻せません※</p>
+<p class="red-text">※登録したアカウント、顧客情報もすべて削除されます※</p>
+<p><input type="submit" value="削除する"></p>
+<p><a href={% url "custmanage:user_info" object.id %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
 </form>

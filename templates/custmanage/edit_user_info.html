@@ -10,9 +10,39 @@
         padding: 0.5em 0;/*上下の余白*/
         border-bottom: solid 3px #00F;/*下線*/
     }
-    .content {
-        padding-left: 50px
+    .center-align {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        overflow-y: auto;
     }
+    .form-container {
+        text-align: right;
+        position: fixed; /* 相対位置指定の親要素を基準にするために絶対位置指定を使う */
+        top: 500px; /* 上下中央に配置 */
+        left: 50%; /* 左右中央に配置 */
+        transform: translate(-50%, -50%); /* 中央配置 */
+        width: 300px; /* フォームの幅 */
+        max-height: 100%;
+        overflow-y: auto;
+    }
+
+    
+    .right-align {
+      text-align: right;
+    }
+        a.btn--yellow {
+  color: #FFF;
+  background-color: #000080;
+  border-bottom: 5px solid #808080;
+}
+a.btn--yellow:hover {
+  margin-top: 3px;
+  color: #FFF;
+  background: # 808080;
+  border-bottom: 2px solid #808080;
+}
 </style>
 <h1>ユーザー情報を変更できます。</h1>
 <head>
@@ -20,15 +50,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class='content'>
-        <form method="POST">
-            {{ form.as_p }}
-            <input type="submit" value="更新">
-            <br></br>
-            <a href={% url "accounts:change_password" object.pk %} class="button">パスワード更新</a>
-            <br></br>
-            <a href={% url "custmanage:user_info" object.id %} class="button">Back</a>
-        </form>
+    <div class='content' style="overflow-x: auto;">
+    <div class="center-align right-align">
+        <div class="form-container">
+            <form method="POST">
+                {{ form.as_p }}
+                <p style="text-align: center;"><input type="submit" value="更新"></p>
+                <p style="text-align: center;"><a href={% url "accounts:change_password" object.pk %} class="btn btn--yellow btn--cubic">パスワード更新 〉</a></p>
+                <p style="text-align: center;"><a href={% url "custmanage:user_info" object.id %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
+            </form>
+        </div>
     </div>
 </body>
 </html>

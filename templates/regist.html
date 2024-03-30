@@ -7,6 +7,16 @@
             border-top: solid 3px #364e96;
             border-bottom: solid 3px #364e96;
         }
+        .errorlist li{
+            border: .1rem solid #f00;
+            color: #f00;
+            background: rgba(255, 0, 0, .15);
+            list-style-position: inside;
+            display: block;
+            padding: 1rem;
+            text-align: left;
+            border-radius: .3rem;
+        }
 </style>
 <h1 style='text-align:center'>新規ユーザー登録を行います</h1>
 <html lang="ja">
@@ -22,19 +32,27 @@
       justify-content: center;
       align-items: center;
     }
+    .center-align {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40vh;
+        text-align: center;
+    }
     .form-container {
-      width: 400px;
+      width: 350px;
+      text-align: right;
     }
   </style>
 </head>
 <body>
-  <div class="center">
+  <div class="center-align">
     <div class="form-container">
       <form method="post">
          {% csrf_token %}
          {{ form.as_p }}
          <input type="hidden" name="next" value="{{ request.GET.next }}">
-         <input type="submit" value="ユーザー登録">
+         <p style="text-align: center;"><input type="submit" value="ユーザー登録"></p>
       </form>
     </div>
   </div>

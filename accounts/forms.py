@@ -32,8 +32,8 @@ class RegistForm(forms.ModelForm):
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.EmailField(label='メールアドレス')
-    password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+    username = forms.EmailField(label='メールアドレス  ')
+    password = forms.CharField(label='パスワード    ', widget=forms.PasswordInput())
     remember = forms.BooleanField(label='ログイン状態を保持する', required=False)
 
 class PasswordChangeForm(forms.ModelForm):
