@@ -33,15 +33,90 @@ a.btn--yellow:hover {
   background: # 808080;
   border-bottom: 2px solid #808080;
 }
+
+    input[type="submit"] {
+        color: #FFF;
+        background-color: #000080;
+        border-bottom: 5px solid #808080;
+        border-radius: 100vh;
+        width: 80%;
+    }
+    input[type="submit"]:hover {
+        margin-top: 3px;
+        color: #FFF;
+        background: # 808080;
+        border-bottom: 2px solid #808080;
+    }
+    .custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-dropdown input[type="text"] {
+  width: 200px;
+  padding: 10px;
+}
+
+.dropdown-list {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: #f9f9f9;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+}
+
+.dropdown-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #ddd;
+}
 </style>
 <h1 style="text-align:center;">名刺一覧</h1>
+    <h3 style="text-align:center;">⇓会社名 / 業種 / 資格でソート⇓</h3>
+
 <div class="center-align right-align">
     <div class="form-container">
-    <h3 style="text-align:center;">⇓会社名、業種、資格でソート⇓</h3>
     <form method="get" action="{% url 'custmanage:cust_list' %}">
-        <p class="center-align right-align">会社名：<input type="text" name="Company_name" value="{{ Company_name }}"/></p>
-        <p class="center-align right-align" style="margin-left: 19px;">業種：  <input type="text" name="Cust_job_name" value="{{ Cust_job_name }}"/></p>
-        <p class="center-align right-align" style="margin-left: 19px;">資格：  <input type="text" name="Cust_skill_name" value="{{ Cust_skill_name }}"/></p>
+        <p style="text-align: center;"><span>会社名：</span>
+            <span style="float: right; margin-right: 30px;">
+                {% comment %} プルダウン表示にする。forでリスト内の要素を表示するようにする。 {% endcomment %}
+                <select name="Company_name"> 
+                    <option value="">選択してください</option>
+                    <option value=""></option>
+                        {% for Cust_info in object_list %}
+                            <option value="{{ Cust_info.Company }}">{{ Cust_info.Company }}</option>
+                        {% endfor %}
+                </select>
+            </span>
+        </p>
+        <p style="text-align: center;"><span>業種：</span>
+            <span style="float: right; margin-right: 30px;">
+                <select name="Cust_job_name">
+                    <option value="">選択してください</option>
+                    <option value=""></option>
+                        {% for Cust_info in object_list %}
+                            <option value="{{ Cust_info.Cust_job }}">{{ Cust_info.Cust_job }}</option>
+                        {% endfor %}
+                </select>
+            </span>
+        </p>
+        <p style="text-align: center;"><span>資格：</span>
+            <span style="float: right; margin-right: 30px;">
+                <select name="Cust_skill_name">
+                    <option value="">選択してください</option>
+                    <option value=""></option>
+                        {% for Cust_info in object_list %}
+                            <option value="{{ Cust_info.Cust_skill }}">{{ Cust_info.Cust_skill }}</option>
+                        {% endfor %}
+                </select>
+            </span>
+        </p>
         <p style="text-align:center;">重要度で並べ替える：
         昇順<input type="radio" name="order_by_importance_level" value="1" {% if ascending %}checked{% endif %}>
         降順<input type="radio" name="order_by_importance_level" value="2" {% if descending %}checked{% endif %}>

@@ -15,7 +15,26 @@
         padding: 1.0rem;
         text-align: center;
         width: 700px;
+    }
 
+    .form-group {
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+    .left-align {
+        float: left;
+        width: 90px; /* ラベルの幅を調整してください */
+        text-align: left;
+    }
+
+    .right-align {
+        margin-right: 5px; /* ラベルの幅 + マージンを調整してください */
+    }
+
+    .remember {
+        margin-right: 100px; /* ラベルとテキストボックスの間隔を調整してください */
+        display: inline-block; /* チェックボックスとテキストを横並びにするために必要です */
     }
     .center-align {
         display: flex;
@@ -31,18 +50,47 @@
         text-align: right; /* フォーム内のテキストを左揃えにする */
         width: 300px;
     }
+
+    input[type="submit"] {
+        color: #FFF;
+        background-color: #000080;
+        border-bottom: 5px solid #808080;
+        border-radius: 100vh;
+        width: 50%;
+    }
+    input[type="submit"]:hover {
+        margin-top: 3px;
+        color: #FFF;
+        background: # 808080;
+        border-bottom: 2px solid #808080;
+}
 </style>
 <h1 style='text-align:center'>個人向け名刺管理ツール</h1>
 <h2 style='text-align:center'>Welcome!!</h2>
 <h3 style='text-align:center'>アナログな名刺をデジタルにして、データを残そう！</h3>
 <br></br>
+
 <div class="center-align">
     <div class="form-container">
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group">
+                <label class="left-align">{{ form.username.label }}</label>
+                <div class="right-align">{{ form.username }}</div>
+            </div>
+            <div class="form-group">
+                <label class="left-align">{{ form.password.label }}</label>
+                <div class="right-align">{{ form.password }}</div>
+            </div>
+            <div class="form-group">
+                <div class="remember">
+                    <label for="{{ form.remember.id_for_label }}"> {{ form.remember.label }}{{ form.remember }}</label>
+                    
+                </div>
+            </div>
             <p style="text-align: center;"><input type="submit" value="ログイン"></p>
         </form>
     </div>
 </div>
+
 {% endblock %}

@@ -27,10 +27,22 @@
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  .form-group {
+    margin-bottom: 15px;
+    overflow: hidden; /* フロート要素が高さを維持するために必要 */
+    text-align: center;
+
+}
+
+    .left-align {
+      float: left;
+      width: 150px; /* ラベルの幅を調整してください */
+      text-align: left;
+    }
+
+    .right-align {
+      margin-left: 0px; /* ラベルの幅 + マージンを調整してください */
+      float: left;
     }
     .center-align {
         display: flex;
@@ -40,22 +52,54 @@
         text-align: center;
     }
     .form-container {
-      width: 350px;
-      text-align: right;
+        width: 350px;
+        text-align: center;
+    }
+    input[type="submit"] {
+        color: #FFF;
+        background-color: #000080;
+        border-bottom: 5px solid #808080;
+        border-radius: 100vh;
+        width: 50%;
+        padding: 0.4rem 0.3rem;
+        font-size: 1.0rem;
+    }
+    input[type="submit"]:hover {
+        margin-top: 3px;
+        color: #FFF;
+        background: # 808080;
+        border-bottom: 2px solid #808080;
     }
   </style>
 </head>
 <body>
+
   <div class="center-align">
     <div class="form-container">
-      <form method="post">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <input type="hidden" name="next" value="{{ request.GET.next }}">
-         <p style="text-align: center;"><input type="submit" value="ユーザー登録"></p>
-      </form>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="left-align">{{ form.username.label }}</label>
+                <div class="right-align">{{ form.username }}</div>
+            </div>
+            <div class="form-group">
+                <label class="left-align">{{ form.age.label }}</label>
+                <div class="right-align">{{ form.age }}</div>
+            </div>
+            <div class="form-group">
+                <label class="left-align">{{ form.email.label }}</label>
+                <div class="right-align">{{ form.email }}</div>
+            </div>
+            <div class="form-group">
+                <label class="left-align">{{ form.password.label }}</label>
+                <div class="right-align">{{ form.password }}</div>
+            </div>
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+            <p style="text-align: center;"><input type="submit" value="ユーザー登録"></p>
+        </form>
     </div>
-  </div>
+</div>
+
 </body>
 </html>
 {% endblock %}

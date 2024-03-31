@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404
 
 
 class CustInfoForm(forms.ModelForm):
-
     class Meta:
         model = CustInfo
         fields = '__all__'

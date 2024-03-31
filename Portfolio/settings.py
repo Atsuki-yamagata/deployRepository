@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'custmanage',
     'accounts',
-    'django_bootstrap5',
-    'widget_tweaks',
 ]
 
 AUTH_USER_MODEL = 'accounts.Users'
