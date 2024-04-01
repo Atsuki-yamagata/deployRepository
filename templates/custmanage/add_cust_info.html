@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <form method="POST">
     {% csrf_token %}
 
@@ -8,6 +10,32 @@
         padding: 0.5em 0;/*上下の余白*/
         border-bottom: solid 3px #00F;/*下線*/
     }
+
+    .form-group {
+        margin-bottom: 15px;
+        overflow: hidden; /* フロート要素が高さを維持するために必要 */
+        {% comment %} text-align: center; {% endcomment %}
+    }
+
+
+    .left-align {
+        float: left;
+        width: 100px; /* ラベルの幅を調整してください */
+        text-align: left;
+    }
+
+    .right-align {
+        margin-left: 0px; /* ラベルの幅 + マージンを調整してください */
+        float: left;
+    }
+    .form-container {
+        position: fixed; /* 相対位置指定の親要素を基準にするために絶対位置指定を使う */
+        top: 500px; /* 上下中央に配置 */
+        left: 50%; /* 左右中央に配置 */
+        transform: translate(-50%, -50%); /* 中央配置 */
+        font-size: 18px;
+    }
+
     .button {
         display: inline-block;
         padding: 8px 18px;
@@ -22,7 +50,7 @@
     .button:hover {
         background-color: #0056b3;
     }
-    .center-align {
+    {% comment %} .center-align {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -30,7 +58,7 @@
     }
     .right-align {
       text-align: right;
-    }
+    } {% endcomment %}
 .btn,
 a.btn,
 button.btn {
@@ -71,7 +99,7 @@ button.btn {
     background-color: #000080;
     border-bottom: 5px solid #808080;
     border-radius: 100vh;
-    width: 100%;
+    width: 50%;
     padding: 0.4rem 0.3rem;
     font-size: 1.0rem;
   }
@@ -83,11 +111,64 @@ button.btn {
   }
 </style>
 <h1>名刺情報を追加できます。</h1>
-    <div class="center-align right-align">
+    {% comment %} <div class="center-align right-align">
      <div class="form-container">
         {{ form.as_p }}
         <p style="text-align: center;"><input type="submit" value="保存"></p>
         <p style="text-align: center;"><a href={% url "custmanage:cust_list" %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
      </div>
+    </div> {% endcomment %}
+
+    <div class='content' style="overflow-y: auto; text-align: center;">
+    <div class="center-align">
+        <div class="form-container" style="display: inline-block; text-align: center;">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="left-align">{{ form.Cust_name.label }}</label>
+                    <div class="right-align">{{ form.Cust_name }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Company.label }}</label>
+                    <div class="right-align">{{ form.Company }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Company_address.label }}</label>
+                    <div class="right-align">{{ form.Company_address }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Cust_post.label }}</label>
+                    <div class="right-align">{{ form.Cust_post }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Cust_job.label }}</label>
+                    <div class="right-align">{{ form.Cust_job }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Cust_skill.label }}</label>
+                    <div class="right-align">{{ form.Cust_skill }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Cust_mail.label }}</label>
+                    <div class="right-align">{{ form.Cust_mail }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.Cust_phone_num.label }}</label>
+                    <div class="right-align">{{ form.Cust_phone_num }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.importance_level.label }}</label>
+                    <div class="right-align">{{ form.importance_level }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="left-align">{{ form.memo.label }}</label>
+                    <div class="right-align">{{ form.memo }}</div>
+                </div>
+                <p style="text-align: center;"><input type="submit" value="保存"></p>
+                <p style="text-align: center;"><a href={% url "custmanage:cust_list" %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
+            </form>
+        </div>
     </div>
+</div>
 </form>
+{% endblock %}
