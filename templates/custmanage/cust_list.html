@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% comment %} ホーム画面（名刺一覧） {% endcomment %}
 {% block content %}
+{% comment %} <style>はCSSにまとめる {% endcomment %}
 <style>
         h1 {
       color: #364e96;/*文字色*/
@@ -86,12 +87,12 @@ a.btn--yellow:hover {
         <p style="text-align: center;"><span>会社名：</span>
             <span style="float: right; margin-right: 30px;">
                 {% comment %} プルダウン表示にする。forでリスト内の要素を表示するようにする。 {% endcomment %}
-                <select name="Company_name"> 
+                <select name="Company_name">
                     <option value="">選択してください</option>
                     <option value=""></option>
-                        {% for Cust_info in object_list %}
-                            <option value="{{ Cust_info.Company }}">{{ Cust_info.Company }}</option>
-                        {% endfor %}
+                    {% for Company  in unique_companies %}
+                    <option value="{{ Company }}" {% if company == selected_company %}selected{% endif %}>{{ Company  }}</option>
+                    {% endfor %}
                 </select>
             </span>
         </p>
@@ -100,9 +101,9 @@ a.btn--yellow:hover {
                 <select name="Cust_job_name">
                     <option value="">選択してください</option>
                     <option value=""></option>
-                        {% for Cust_info in object_list %}
-                            <option value="{{ Cust_info.Cust_job }}">{{ Cust_info.Cust_job }}</option>
-                        {% endfor %}
+                    {% for Cust_job in unique_jobs %}
+                    <option value="{{ Cust_job }}" {% if job == Cust_job %}selected{% endif %}>{{ Cust_job }}</option>
+                    {% endfor %}
                 </select>
             </span>
         </p>
@@ -111,9 +112,9 @@ a.btn--yellow:hover {
                 <select name="Cust_skill_name">
                     <option value="">選択してください</option>
                     <option value=""></option>
-                        {% for Cust_info in object_list %}
-                            <option value="{{ Cust_info.Cust_skill }}">{{ Cust_info.Cust_skill }}</option>
-                        {% endfor %}
+                    {% for Cust_skill  in unique_skills %}
+                    <option value="{{ Cust_skill }}" {% if skill == Cust_skill %}selected{% endif %}>{{ Cust_skill  }}</option>
+                    {% endfor %}
                 </select>
             </span>
         </p>

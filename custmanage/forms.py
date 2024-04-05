@@ -55,3 +55,4 @@ class CustUpdateForm(forms.ModelForm):
         model = CustInfo
         fields = ['Cust_name', 'Company', 'Company_address', 'Cust_post', 'Cust_job', 
                   'Cust_skill','Cust_mail', 'Cust_phone_num', 'importance_level', 'memo']
+

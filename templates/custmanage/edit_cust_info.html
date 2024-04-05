@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block content %}
 <form method="POST">
 {% csrf_token %}
 <html lang="ja">
@@ -119,7 +119,7 @@
                     <div class="right-align">{{ form.memo }}</div>
                 </div>
                 <p style="text-align: center;"><input type="submit" value="更新"></p>
-                <p style="text-align: center;"><a href={% url "custmanage:user_info" object.id %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
+                <p style="text-align: center;"><a href={% url "custmanage:cust_list" %} class="btn btn--yellow btn--cubic">〈 Back</a></p>
             </form>
         </div>
     </div>

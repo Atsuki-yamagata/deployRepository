@@ -19,6 +19,8 @@ from django.urls import reverse
 from .forms import CustUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse
+from django.db.models import Count
 
 
 
@@ -53,7 +55,7 @@ class CustomerListView(LoginRequiredMixin, ListView):
     model = CustInfo
     template_name = os.path.join('custmanage', 'cust_list.html')
     
-    # 絞り込み
+        # 絞り込み
     def get_queryset(self):
         queryset = super().get_queryset()
         user_id = self.request.user.id  # ログインユーザーのIDを取得
@@ -76,9 +78,20 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user_id = self.request.user.id
+        cust_info_user = CustInfo.objects.filter(user_id=user_id).values('Company', 'Cust_job', 'Cust_skill').annotate(Count('id'))
+        user_filter = CustInfo.objects.filter(user_id=user_id).values_list('Company', flat=True).distinct()
+        unique_companies = CustInfo.objects.filter(user_id=user_id).values_list('Company', flat=True).distinct()
+        unique_jobs = CustInfo.objects.filter(user_id=user_id).values_list('Cust_job', flat=True).distinct()
+        unique_skills = CustInfo.objects.filter(user_id=user_id).values_list('Cust_skill', flat=True).distinct()
+        context['cust_info_user'] = CustInfo.objects.filter(user_id=self.request.user.id)        
         context['Company'] = self.request.GET.get('Company', '')
         context['Cust_job'] = self.request.GET.get('Cust_job', '')
         context['Cust_skill'] = self.request.GET.get('Cust_skill', '')
+        context['selected_company'] = self.request.GET.get('Company_name', '')
+        context['unique_companies'] = unique_companies
+        context['unique_jobs'] = unique_jobs
+        context['unique_skills'] = unique_skills
         order_by_importance_level = self.request.GET.get('order_by_importance_level', 0)
         if order_by_importance_level == '1':
             context['ascending'] = True
